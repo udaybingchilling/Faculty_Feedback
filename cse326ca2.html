@@ -1,0 +1,1885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Faculty Feedback Portal</title>
+<link rel="icon" type="image.png" href="logo.png">
+
+<style>
+    iframe[src*="netlify"] {
+  display: none !important;
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    animation: none !important;
+    transition: none !important;
+}
+
+:root {
+    --navy: #14283f;
+    --navy-light: #203b56;
+    --teal: #13b8a6;
+    --teal-dark: #079989;
+    --coral: #ff796c;
+    --cream: #f7f8f5;
+    --white: #ffffff;
+    --text: #26384b;
+    --muted: #788697;
+    --border: #e8ecef;
+}
+
+body {
+    background: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+/* NAVBAR */
+
+.navbar {
+    min-height: 76px;
+    padding: 15px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--navy);
+    font-size: 19px;
+    font-weight: 800;
+}
+
+.logo-icon {
+    height: 42px;
+    width: 42px;
+    background: var(--navy);
+    color: white;
+    border-radius: 13px;
+    display: grid;
+    place-items: center;
+    font-size: 22px;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.nav-links button {
+    background: transparent;
+    border: none;
+    padding: 11px 17px;
+    border-radius: 9px;
+    color: var(--text);
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.nav-links button:hover {
+    background: #e9f7f5;
+    color: var(--teal-dark);
+}
+
+.nav-links .logout-btn {
+    background: var(--navy);
+    color: white;
+}
+
+.nav-links .logout-btn:hover {
+    background: var(--coral);
+    color: white;
+}
+
+/* GENERAL PAGES */
+
+.page {
+    display: none;
+    min-height: 80vh;
+    padding: 55px 7%;
+}
+
+.page.active {
+    display: block;
+}
+
+/* HOME PAGE */
+
+.home-hero {
+    background: var(--navy);
+    border-radius: 28px;
+    min-height: 420px;
+    padding: 65px;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    align-items: center;
+    gap: 35px;
+    overflow: hidden;
+    position: relative;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.tag {
+    display: inline-block;
+    background: rgba(19,184,166,0.15);
+    color: #65e6d8;
+    border: 1px solid rgba(19,184,166,0.4);
+    padding: 9px 15px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 23px;
+}
+
+.home-hero h1 {
+    color: white;
+    font-size: clamp(32px,4vw,49px);
+    line-height: 1.2;
+    max-width: 600px;
+    margin-bottom: 22px;
+}
+
+.home-hero h1 span {
+    color: var(--teal);
+}
+
+.home-hero p {
+    color: #c1d0dc;
+    font-size: 16px;
+    line-height: 1.8;
+    max-width: 550px;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 13px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+}
+
+.primary-btn,
+.secondary-btn {
+    border: none;
+    padding: 14px 23px;
+    border-radius: 9px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.primary-btn {
+    background: var(--teal);
+    color: var(--navy);
+}
+
+.primary-btn:hover {
+    background: #50d8c8;
+}
+
+.secondary-btn {
+    background: transparent;
+    color: white;
+    border: 1px solid #61768b;
+}
+
+.secondary-btn:hover {
+    background: white;
+    color: var(--navy);
+}
+
+.hero-visual {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 270px;
+}
+
+.visual-circle {
+    width: 245px;
+    height: 245px;
+    border-radius: 50%;
+    background: linear-gradient(145deg,var(--teal),#087e91);
+    display: grid;
+    place-items: center;
+    font-size: 105px;
+    box-shadow: 0 0 0 25px rgba(19,184,166,0.08);
+}
+
+.floating-card {
+    position: absolute;
+    background: white;
+    border-radius: 13px;
+    padding: 15px 19px;
+    box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--navy);
+}
+
+.floating-one {
+    top: 20px;
+    right: 0;
+}
+
+.floating-two {
+    bottom: 20px;
+    left: 0;
+}
+
+/* FEATURES */
+
+.features-section {
+    margin-top: 55px;
+}
+
+.section-heading {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.section-heading small {
+    color: var(--teal-dark);
+    font-weight: 800;
+    letter-spacing: 2px;
+    font-size: 12px;
+}
+
+.section-heading h2 {
+    color: var(--navy);
+    font-size: 29px;
+    margin-top: 9px;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+}
+
+.feature-card {
+    background: white;
+    padding: 27px;
+    border: 1px solid var(--border);
+    border-radius: 17px;
+}
+
+.feature-icon {
+    height: 48px;
+    width: 48px;
+    border-radius: 13px;
+    display: grid;
+    place-items: center;
+    font-size: 23px;
+    margin-bottom: 18px;
+    background: #e5f8f5;
+}
+
+.feature-card h3 {
+    color: var(--navy);
+    margin-bottom: 9px;
+}
+
+.feature-card p {
+    color: var(--muted);
+    line-height: 1.7;
+    font-size: 14px;
+}
+
+/* LOGIN PAGES */
+
+.login-layout {
+    max-width: 1000px;
+    min-height: 510px;
+    margin: 5px auto;
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    background: white;
+    border-radius: 23px;
+    overflow: hidden;
+    box-shadow: 0 15px 45px rgba(25,48,70,0.09);
+}
+
+.login-side {
+    background: var(--navy);
+    padding: 55px 40px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.login-side::after {
+    content: "";
+    position: absolute;
+    width: 240px;
+    height: 240px;
+    border: 45px solid rgba(19,184,166,0.12);
+    border-radius: 50%;
+    right: -100px;
+    bottom: -100px;
+}
+
+.login-side .side-symbol {
+    font-size: 65px;
+    margin-bottom: 22px;
+}
+
+.login-side h2 {
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+.login-side p {
+    color: #c0ced9;
+    line-height: 1.8;
+    font-size: 15px;
+}
+
+.login-form {
+    padding: 55px 50px;
+}
+
+.form-label {
+    color: var(--teal-dark);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.login-form h2 {
+    font-size: 29px;
+    color: var(--navy);
+    margin: 9px 0 28px;
+}
+
+label {
+    display: block;
+    color: var(--text);
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 9px;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    border: 1px solid #dfe5e9;
+    border-radius: 9px;
+    padding: 14px;
+    font-size: 14px;
+    background: #fafcfc;
+    margin-bottom: 21px;
+    outline: none;
+    color: var(--text);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(19,184,166,0.1);
+}
+
+.form-btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    background: var(--teal);
+    color: var(--navy);
+    border-radius: 9px;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.form-btn:hover {
+    background: var(--teal-dark);
+    color: white;
+}
+
+.back-btn {
+    display: block;
+    margin: 20px auto 0;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.back-btn:hover {
+    color: var(--teal-dark);
+}
+
+/* DASHBOARD */
+
+.dashboard-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 35px;
+}
+
+.dashboard-top small {
+    color: var(--teal-dark);
+    letter-spacing: 2px;
+    font-weight: 800;
+}
+
+.dashboard-top h1 {
+    color: var(--navy);
+    font-size: 34px;
+    margin: 8px 0;
+}
+
+.dashboard-top p {
+    color: var(--muted);
+}
+
+.welcome-badge {
+    background: white;
+    border: 1px solid var(--border);
+    padding: 15px 22px;
+    border-radius: 13px;
+    color: var(--navy);
+    font-weight: 700;
+}
+
+.dashboard-banner {
+    background: linear-gradient(110deg,#dff7f2,#edf8fa);
+    border-radius: 17px;
+    padding: 24px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 35px;
+}
+
+.dashboard-banner h3 {
+    color: var(--navy);
+    margin-bottom: 7px;
+}
+
+.dashboard-banner p {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.banner-icon {
+    font-size: 45px;
+}
+
+.subject-heading {
+    color: var(--navy);
+    margin-bottom: 19px;
+    font-size: 22px;
+}
+
+/* COURSE CARDS */
+
+.course-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+}
+
+.course-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 25px;
+    position: relative;
+    overflow: hidden;
+}
+
+.course-card:hover {
+    box-shadow: 0 12px 25px rgba(25,48,70,0.09);
+}
+
+.course-number {
+    width: 45px;
+    height: 45px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: #e1f7f3;
+    color: var(--teal-dark);
+    font-weight: 900;
+    margin-bottom: 19px;
+}
+
+.course-card:nth-child(2) .course-number {
+    background: #fff0e9;
+    color: #e47a52;
+}
+
+.course-card:nth-child(3) .course-number {
+    background: #edf0ff;
+    color: #6474d8;
+}
+
+.course-card:nth-child(4) .course-number {
+    background: #fff0f1;
+    color: #e56a7d;
+}
+
+.course-card:nth-child(5) .course-number {
+    background: #fff5dc;
+    color: #b38b28;
+}
+
+.course-card:nth-child(6) .course-number {
+    background: #f0eaff;
+    color: #8b68ce;
+}
+
+.course-card h3 {
+    color: var(--navy);
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.course-card p {
+    color: var(--muted);
+    font-size: 13px;
+    margin-bottom: 23px;
+}
+
+.course-btn {
+    background: var(--navy);
+    color: white;
+    border: none;
+    padding: 11px 17px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.course-btn:hover {
+    background: var(--teal-dark);
+}
+
+/* FEEDBACK FORM */
+
+.feedback-container {
+    max-width: 850px;
+    margin: auto;
+}
+
+.feedback-header {
+    background: var(--navy);
+    color: white;
+    padding: 30px 35px;
+    border-radius: 17px 17px 0 0;
+}
+
+.feedback-header small {
+    color: #5de0d1;
+    letter-spacing: 2px;
+    font-weight: 800;
+}
+
+.feedback-header h2 {
+    font-size: 27px;
+    margin: 10px 0;
+}
+
+.feedback-header p {
+    color: #c4d0db;
+    font-size: 14px;
+}
+
+.feedback-body {
+    background: white;
+    padding: 35px;
+    border-radius: 0 0 17px 17px;
+    box-shadow: 0 12px 35px rgba(25,48,70,0.08);
+}
+
+.question-box {
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    padding: 23px;
+    margin: 23px 0;
+}
+
+.question-title {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    margin-bottom: 20px;
+}
+
+.question-number {
+    height: 35px;
+    width: 35px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    background: #e2f7f3;
+    color: var(--teal-dark);
+    border-radius: 9px;
+    font-weight: 900;
+}
+
+.question-title h3 {
+    color: var(--navy);
+    font-size: 16px;
+}
+
+.rating-options {
+    display: flex;
+    gap: 9px;
+    flex-wrap: wrap;
+}
+
+.rating-options label {
+    margin: 0;
+    cursor: pointer;
+}
+
+.rating-options input {
+    display: none;
+}
+
+.rating-options span {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border: 1px solid #dce4e8;
+    border-radius: 9px;
+    color: var(--text);
+    font-weight: 700;
+}
+
+.rating-options input:checked + span {
+    background: var(--teal);
+    color: var(--navy);
+    border-color: var(--teal);
+}
+
+.rating-options span:hover {
+    border-color: var(--teal);
+    background: #e5f8f5;
+}
+
+.question-box textarea {
+    margin: 0;
+    resize: vertical;
+    min-height: 120px;
+}
+
+/* ANONYMOUS CHECKBOX */
+
+.anonymous-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 18px 0 24px;
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.anonymous-option input {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    accent-color: var(--teal-dark);
+}
+
+/* ADMIN DASHBOARD */
+
+.admin-stats {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+    margin: 30px 0;
+}
+
+.stat-card {
+    background: white;
+    border: 1px solid var(--border);
+    padding: 24px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.stat-icon {
+    height: 51px;
+    width: 51px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 13px;
+    background: #e1f7f3;
+    font-size: 23px;
+}
+
+.stat-card:nth-child(2) .stat-icon {
+    background: #fff0e9;
+}
+
+.stat-card:nth-child(3) .stat-icon {
+    background: #edf0ff;
+}
+
+.stat-card p {
+    color: var(--muted);
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+.stat-card h2 {
+    color: var(--navy);
+    font-size: 24px;
+}
+
+.table-section {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 17px;
+    padding: 28px;
+    margin-top: 25px;
+}
+
+.table-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 22px;
+    flex-wrap: wrap;
+}
+
+.table-heading h2 {
+    color: var(--navy);
+    font-size: 21px;
+}
+
+.demo-label {
+    background: #fff1e9;
+    color: #d56f4b;
+    padding: 8px 13px;
+    border-radius: 30px;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 350px;
+}
+
+th {
+    background: #f0f6f6;
+    color: var(--navy);
+    text-align: left;
+    padding: 16px;
+    font-size: 13px;
+}
+
+td {
+    padding: 17px 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    font-size: 14px;
+}
+
+tbody tr:hover {
+    background: #f7fbfa;
+}
+
+.rating-pill {
+    display: inline-block;
+    background: #e2f7f3;
+    color: #078c7f;
+    padding: 7px 13px;
+    border-radius: 7px;
+    font-weight: 800;
+}
+
+.not-rated {
+    background: #f1f2f4;
+    color: #78818a;
+}
+
+.demo-note {
+    background: #fff8ed;
+    border-left: 4px solid #f0b65c;
+    padding: 16px;
+    margin-top: 23px;
+    border-radius: 7px;
+    color: #86642e;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+/* ABOUT PAGE */
+
+.about-hero {
+    background: var(--navy);
+    border-radius: 22px;
+    padding: 48px;
+    color: white;
+    margin-bottom: 30px;
+}
+
+.about-hero small {
+    color: var(--teal);
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.about-hero h1 {
+    font-size: 36px;
+    margin: 15px 0;
+}
+
+.about-hero p {
+    color: #c1cfdb;
+    line-height: 1.8;
+    max-width: 750px;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+}
+
+.about-card {
+    background: white;
+    padding: 28px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+}
+
+.about-card h3 {
+    color: var(--navy);
+    margin-bottom: 13px;
+}
+
+.about-card p {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.tech-list {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 17px;
+}
+
+.tech-list span {
+    background: #e7f7f4;
+    color: #078e80;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+/* FOOTER */
+
+.footer {
+    background: var(--navy);
+    color: #c2ced9;
+    padding: 25px 7%;
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    flex-wrap: wrap;
+    font-size: 13px;
+}
+
+.footer strong {
+    color: var(--teal);
+}
+
+/* RESPONSIVE DESIGN */
+
+@media(max-width:850px) {
+    .home-hero {
+        grid-template-columns: 1fr;
+        padding: 45px 30px;
+    }
+
+    .hero-visual {
+        min-height: 230px;
+    }
+
+    .feature-grid,
+    .course-grid {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .login-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .login-side {
+        padding: 35px;
+    }
+
+    .login-form {
+        padding: 35px;
+    }
+}
+
+@media(max-width:600px) {
+    .navbar {
+        height: auto;
+        min-height: 75px;
+        padding: 15px 5%;
+        flex-direction: column;
+        gap: 13px;
+    }
+
+    .logo {
+        font-size: 16px;
+    }
+
+    .nav-links {
+        gap: 3px;
+    }
+
+    .nav-links button {
+        padding: 9px 11px;
+        font-size: 12px;
+    }
+
+    .page {
+        padding: 30px 5%;
+    }
+
+    .home-hero {
+        padding: 35px 23px;
+    }
+
+    .home-hero h1 {
+        font-size: 33px;
+    }
+
+    .visual-circle {
+        width: 185px;
+        height: 185px;
+        font-size: 75px;
+    }
+
+    .floating-one {
+        right: -5px;
+    }
+
+    .floating-two {
+        left: -5px;
+    }
+
+    .feature-grid,
+    .course-grid,
+    .admin-stats,
+    .about-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-top h1 {
+        font-size: 28px;
+    }
+
+    .dashboard-banner {
+        padding: 20px;
+    }
+
+    .feedback-body {
+        padding: 20px;
+    }
+
+    .feedback-header {
+        padding: 25px;
+    }
+
+    .rating-options {
+        gap: 7px;
+    }
+
+    .rating-options span {
+        width: 36px;
+        height: 36px;
+    }
+
+    .about-hero {
+        padding: 30px 23px;
+    }
+
+    .about-hero h1 {
+        font-size: 28px;
+    }
+
+    .footer {
+        text-align: center;
+        justify-content: center;
+    }
+}
+</style>
+</head>
+
+<body>
+
+
+
+<nav class="navbar">
+
+    <div class="logo">
+        <div class="logo-icon">✦</div>
+        Faculty Feedback Portal
+    </div>
+
+    <div class="nav-links">
+        <button onclick="showPage('home')">Home</button>
+        <button onclick="showPage('about')">About</button>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+
+</nav>
+
+
+
+<section id="home" class="page active">
+
+    <div class="home-hero">
+
+        <div class="hero-content">
+
+            <span class="tag">STUDENT FEEDBACK PLATFORM</span>
+
+            <h1>
+                Your Feedback.<br>
+                Our <span>Improvement.</span>
+            </h1>
+
+            <p>
+                A simple and organised platform to evaluate courses,
+                share your learning experience and help improve
+                the quality of education.
+            </p>
+
+            <div class="hero-actions">
+
+                <button class="primary-btn"
+                    onclick="showPage('studentLogin')">
+                    Student Portal →
+                </button>
+
+                <button class="secondary-btn"
+                    onclick="showPage('adminLogin')">
+                    Admin Portal
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="hero-visual">
+
+            <div class="visual-circle">🎓</div>
+
+            <div class="floating-card floating-one">
+                ✦ Quality Learning
+            </div>
+
+            <div class="floating-card floating-two">
+                ✓ Share Your Feedback
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="features-section">
+
+        <div class="section-heading">
+            <small>WHAT WE OFFER</small>
+            <h2>A Better Way to Share Feedback</h2>
+        </div>
+
+        <div class="feature-grid">
+
+            <div class="feature-card">
+                <div class="feature-icon">📚</div>
+                <h3>Course Evaluation</h3>
+                <p>
+                    Choose your subject and evaluate the teaching
+                    and learning experience.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">⭐</div>
+                <h3>Simple Ratings</h3>
+                <p>
+                    Give ratings out of 10 through an easy and
+                    organised feedback form.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Admin Overview</h3>
+                <p>
+                    View fixed sample ratings through a clean
+                    administration dashboard.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<section id="studentLogin" class="page">
+
+    <div class="login-layout">
+
+        <div class="login-side">
+
+            <div class="side-symbol">🎓</div>
+
+            <h2>Welcome, Student!</h2>
+
+            <p>
+                Your learning experience matters.
+                Enter your details to access your course dashboard
+                and share your valuable feedback.
+            </p>
+
+        </div>
+
+        <div class="login-form">
+
+            <span class="form-label">STUDENT ACCESS</span>
+
+            <h2>Student Login</h2>
+
+            <form onsubmit="studentLogin(event)">
+
+                <label>Student Name</label>
+
+                <input type="text"
+                    id="studentName"
+                    placeholder="Enter your full name"
+                    required>
+
+                <label>Registration Number</label>
+
+                <input type="text"
+                    id="registrationNumber"
+                    placeholder="Enter registration number"
+                    required>
+
+                <label>School</label>
+
+                <input type="text"
+                    id="school"
+                    placeholder="Enter your school name"
+                    required>
+
+                <button type="submit" class="form-btn">
+                    Continue to Dashboard →
+                </button>
+
+            </form>
+
+            <button class="back-btn"
+                onclick="showPage('home')">
+                ← Back to Home
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<section id="adminLogin" class="page">
+
+    <div class="login-layout">
+
+        <div class="login-side">
+
+            <div class="side-symbol">🛡️</div>
+
+            <h2>Admin Workspace</h2>
+
+            <p>
+                Welcome to the administration portal.
+                Enter your details to access the course evaluation
+                overview and sample ratings.
+            </p>
+
+        </div>
+
+        <div class="login-form">
+
+            <span class="form-label">ADMIN ACCESS</span>
+
+            <h2>Admin Login</h2>
+
+            <form onsubmit="adminLogin(event)">
+
+                <label>Admin Name</label>
+
+                <input type="text"
+                    id="adminName"
+                    placeholder="Enter admin name"
+                    required>
+
+                <label>Admin ID</label>
+
+                <input type="text"
+                    id="adminId"
+                    placeholder="Enter admin ID"
+                    required>
+
+                <button type="submit" class="form-btn">
+                    Access Dashboard →
+                </button>
+
+            </form>
+
+            <button class="back-btn"
+                onclick="showPage('home')">
+                ← Back to Home
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section id="studentDashboard" class="page">
+
+    <div class="dashboard-top">
+
+        <div>
+            <small>STUDENT WORKSPACE</small>
+            <h1>My Dashboard</h1>
+            <p>Choose a course and share your feedback.</p>
+        </div>
+
+        <div class="welcome-badge">
+            Hello, Student 👋
+        </div>
+
+    </div>
+
+    <div class="dashboard-banner">
+
+        <div>
+            <h3>Your Opinion Makes a Difference!</h3>
+            <p>
+                Take a moment to evaluate your subjects
+                and share suggestions.
+            </p>
+        </div>
+
+        <div class="banner-icon">💡</div>
+
+    </div>
+
+    <h2 class="subject-heading">Available Courses</h2>
+
+    <div class="course-grid">
+
+        <div class="course-card">
+            <div class="course-number">01</div>
+            <h3>CSE326</h3>
+            <p>Course Evaluation</p>
+            <button class="course-btn"
+                onclick="openFeedback('CSE326')">
+                Give Feedback →
+            </button>
+        </div>
+
+        <div class="course-card">
+            <div class="course-number">02</div>
+            <h3>INT</h3>
+            <p>Course Evaluation</p>
+            <button class="course-btn"
+                onclick="openFeedback('INT')">
+                Give Feedback →
+            </button>
+        </div>
+
+        <div class="course-card">
+            <div class="course-number">03</div>
+            <h3>MTH</h3>
+            <p>Course Evaluation</p>
+            <button class="course-btn"
+                onclick="openFeedback('MTH')">
+                Give Feedback →
+            </button>
+        </div>
+
+        <div class="course-card">
+            <div class="course-number">04</div>
+            <h3>CSE111</h3>
+            <p>Course Evaluation</p>
+            <button class="course-btn"
+                onclick="openFeedback('CSE111')">
+                Give Feedback →
+            </button>
+        </div>
+
+        <div class="course-card">
+            <div class="course-number">05</div>
+            <h3>PHY175</h3>
+            <p>Course Evaluation</p>
+            <button class="course-btn"
+                onclick="openFeedback('PHY175')">
+                Give Feedback →
+            </button>
+        </div>
+
+        <div class="course-card">
+            <div class="course-number">06</div>
+            <h3>ECE120</h3>
+            <p>Course Evaluation</p>
+            <button class="course-btn"
+                onclick="openFeedback('ECE120')">
+                Give Feedback →
+            </button>
+        </div>
+
+    </div>
+
+</section>
+
+
+<section id="feedback" class="page">
+
+    <div class="feedback-container">
+
+        <div class="feedback-header">
+
+            <small>COURSE EVALUATION</small>
+
+            <h2>Share Your Feedback</h2>
+
+            <p>
+                Your honest opinion helps improve the
+                learning experience.
+            </p>
+
+        </div>
+
+        <div class="feedback-body">
+
+            <form onsubmit="submitFeedback(event)">
+
+                <label>Select Subject</label>
+
+                <select id="subject" required>
+
+                    <option value="">Choose your subject</option>
+                    <option value="CSE326">CSE326</option>
+                    <option value="INT">INT</option>
+                    <option value="MTH">MTH</option>
+                    <option value="CSE111">CSE111</option>
+                    <option value="PHY175">PHY175</option>
+                    <option value="ECE120">ECE120</option>
+
+                </select>
+
+            
+
+                <div class="question-box">
+
+                    <div class="question-title">
+
+                        <div class="question-number">1</div>
+
+                        <h3>
+                            How would you rate the teaching quality?
+                        </h3>
+
+                    </div>
+
+                    <div class="rating-options">
+
+                        <label><input type="radio" name="teaching" value="1" required><span>1</span></label>
+                        <label><input type="radio" name="teaching" value="2"><span>2</span></label>
+                        <label><input type="radio" name="teaching" value="3"><span>3</span></label>
+                        <label><input type="radio" name="teaching" value="4"><span>4</span></label>
+                        <label><input type="radio" name="teaching" value="5"><span>5</span></label>
+                        <label><input type="radio" name="teaching" value="6"><span>6</span></label>
+                        <label><input type="radio" name="teaching" value="7"><span>7</span></label>
+                        <label><input type="radio" name="teaching" value="8"><span>8</span></label>
+                        <label><input type="radio" name="teaching" value="9"><span>9</span></label>
+                        <label><input type="radio" name="teaching" value="10"><span>10</span></label>
+
+                    </div>
+
+                </div>
+
+              
+                <div class="question-box">
+
+                    <div class="question-title">
+
+                        <div class="question-number">2</div>
+
+                        <h3>
+                            How well do you understand the subject?
+                        </h3>
+
+                    </div>
+
+                    <div class="rating-options">
+
+                        <label><input type="radio" name="understanding" value="1" required><span>1</span></label>
+                        <label><input type="radio" name="understanding" value="2"><span>2</span></label>
+                        <label><input type="radio" name="understanding" value="3"><span>3</span></label>
+                        <label><input type="radio" name="understanding" value="4"><span>4</span></label>
+                        <label><input type="radio" name="understanding" value="5"><span>5</span></label>
+                        <label><input type="radio" name="understanding" value="6"><span>6</span></label>
+                        <label><input type="radio" name="understanding" value="7"><span>7</span></label>
+                        <label><input type="radio" name="understanding" value="8"><span>8</span></label>
+                        <label><input type="radio" name="understanding" value="9"><span>9</span></label>
+                        <label><input type="radio" name="understanding" value="10"><span>10</span></label>
+
+                    </div>
+
+                </div>
+
+                
+                <div class="question-box">
+
+                    <div class="question-title">
+
+                        <div class="question-number">3</div>
+
+                        <h3>
+                            What suggestions would you like to give?
+                        </h3>
+
+                    </div>
+
+                    <textarea id="suggestions"
+                        rows="5"
+                        placeholder="Write your suggestions here..."
+                        required></textarea>
+
+                </div>
+
+              
+
+                <div class="question-box">
+
+                    <div class="question-title">
+
+                        <div class="question-number">4</div>
+
+                        <h3>
+                            How helpful are the course materials?
+                        </h3>
+
+                    </div>
+
+                    <div class="rating-options">
+
+                        <label><input type="radio" name="materials" value="1" required><span>1</span></label>
+                        <label><input type="radio" name="materials" value="2"><span>2</span></label>
+                        <label><input type="radio" name="materials" value="3"><span>3</span></label>
+                        <label><input type="radio" name="materials" value="4"><span>4</span></label>
+                        <label><input type="radio" name="materials" value="5"><span>5</span></label>
+                        <label><input type="radio" name="materials" value="6"><span>6</span></label>
+                        <label><input type="radio" name="materials" value="7"><span>7</span></label>
+                        <label><input type="radio" name="materials" value="8"><span>8</span></label>
+                        <label><input type="radio" name="materials" value="9"><span>9</span></label>
+                        <label><input type="radio" name="materials" value="10"><span>10</span></label>
+
+                    </div>
+
+                </div>
+
+
+                <label class="anonymous-option">
+
+                    <input type="checkbox" id="anonymousFeedback">
+
+                    <span>Submit anonymous</span>
+
+                </label>
+
+                
+
+                <button type="submit" class="form-btn">
+                    Submit Feedback →
+                </button>
+
+            </form>
+
+            <button class="back-btn"
+                onclick="showPage('studentDashboard')">
+                ← Back to Dashboard
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section id="adminDashboard" class="page">
+
+    <div class="dashboard-top">
+
+        <div>
+            <small>ADMINISTRATION</small>
+            <h1>Evaluation Overview</h1>
+            <p>Overview of the fixed demonstration ratings.</p>
+        </div>
+
+        <div class="welcome-badge">
+            Admin Panel 🛡️
+        </div>
+
+    </div>
+
+    <div class="admin-stats">
+
+        <div class="stat-card">
+
+            <div class="stat-icon">📚</div>
+
+            <div>
+                <p>Total Subjects</p>
+                <h2>06</h2>
+            </div>
+
+        </div>
+
+        <div class="stat-card">
+
+            <div class="stat-icon">✓</div>
+
+            <div>
+                <p>Portal Status</p>
+                <h2>Active</h2>
+            </div>
+
+        </div>
+
+        <div class="stat-card">
+
+            <div class="stat-icon">📊</div>
+
+            <div>
+                <p>Dashboard Type</p>
+                <h2>Demo</h2>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="table-section">
+
+        <div class="table-heading">
+
+            <h2>Subject Rating Summary</h2>
+
+            <span class="demo-label">SAMPLE DATA</span>
+
+        </div>
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Subject</th>
+                        <th>Average Rating</th>
+                    </tr>
+                </thead>
+
+                <tbody style="font: bold;">
+
+                    <tr>
+                        <td><b>CSE326</b></td>
+                        <td><span class="rating-pill"> 10/ 10</span></td>
+                    </tr>
+
+                    <tr>
+                        <td><b>INT108</b></td>
+                        <td><span class="rating-pill">7/ 10</span></td>
+                    </tr>
+
+                    <tr>
+                        <td><b>CSE111</b></td>
+                        <td><span class="rating-pill ">8/10</span></td>
+                    </tr>
+
+                    <tr>
+                        <td><b>MTH</b></td>
+                        <td><span class="rating-pill">8/ 10</span></td>
+                    </tr>
+
+                    <tr>
+                        <td><b>PHY175</b></td>
+                        <td><span class="rating-pill">7/ 10</span></td>
+                    </tr>
+
+                    <tr>
+                        <td><b>ECE120</b></td>
+                        <td><span class="rating-pill">6/ 10</span></td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<section id="about" class="page">
+
+    <div class="about-hero">
+
+        <small>ABOUT THE PROJECT</small>
+
+        <h1>Making Feedback Simple and Meaningful.</h1>
+
+        <p>
+            The Faculty Feedback & Course Evaluation Portal is a
+            front-end demonstration website designed to provide
+            students with a simple way to evaluate their courses
+            and share suggestions.
+        </p>
+
+    </div>
+
+    <div class="about-grid">
+
+        <div class="about-card">
+
+            <h3>🎯 Our Purpose</h3>
+
+            <p>
+                The main purpose of this project is to create a
+                user-friendly platform where students can rate
+                teaching quality, evaluate their understanding
+                and provide suggestions.
+            </p>
+
+        </div>
+
+        <div class="about-card">
+
+            <h3>✨ Main Features</h3>
+
+            <p>
+                Separate student and admin login pages, subject
+                selection, rating-based feedback forms and a
+                sample admin evaluation dashboard.
+            </p>
+
+        </div>
+
+        <div class="about-card">
+
+            <h3>💻 Technologies Used</h3>
+
+            <p>
+                This project uses three basic web technologies
+                to create its structure, appearance and functionality.
+            </p>
+
+            <div class="tech-list">
+                <span>HTML</span>
+                <span>CSS</span>
+                <span>JavaScript</span>
+            </div>
+
+        </div>
+
+        <div class="about-card">
+
+            <h3>📌 Project Information</h3>
+
+            <p>
+                This is a front-end college demonstration project.
+                It does not use a database, backend or real
+                authentication system. Feedback is not saved
+                or sent anywhere.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<footer class="footer">
+
+    <p><strong>✦ Faculty Feedback Portal</strong></p>
+
+
+</footer>
+
+
+<script>
+
+
+function showPage(pageName) {
+
+    let pages = document.querySelectorAll(".page");
+
+    pages.forEach(function(page) {
+        page.classList.remove("active");
+    });
+
+    document.getElementById(pageName).classList.add("active");
+
+    window.scrollTo(0, 0);
+}
+
+
+
+function studentLogin(event) {
+
+    event.preventDefault();
+
+    let name = document.getElementById("studentName").value.trim();
+
+    let registration =
+        document.getElementById("registrationNumber").value.trim();
+
+    let school = document.getElementById("school").value.trim();
+
+    if (name !== "" && registration !== "" && school !== "") {
+
+        document.querySelector("#studentLogin form").reset();
+
+        showPage("studentDashboard");
+
+    }
+
+}
+
+
+
+function adminLogin(event) {
+
+    event.preventDefault();
+
+    let name = document.getElementById("adminName").value.trim();
+
+    let id = document.getElementById("adminId").value.trim();
+
+    if (name !== "" && id !== "") {
+
+        document.querySelector("#adminLogin form").reset();
+
+        showPage("adminDashboard");
+
+    }
+
+}
+
+
+
+
+function openFeedback(subjectName) {
+
+    document.getElementById("subject").value = subjectName;
+
+    showPage("feedback");
+
+}
+
+
+
+
+function submitFeedback(event) {
+
+    event.preventDefault();
+
+    alert("Thank you! Your feedback has been submitted successfully.");
+
+    document.querySelector("#feedback form").reset();
+
+    showPage("studentDashboard");
+
+}
+
+
+function logout() {
+
+    document.querySelector("#studentLogin form").reset();
+
+    document.querySelector("#adminLogin form").reset();
+
+    document.querySelector("#feedback form").reset();
+
+    showPage("home");
+
+}
+
+</script>
+
+</body>
+</html>
